@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trading View</title>
+
+
+	<style>
+	body{
+		 background-image: url("shutterstock_1159552885.jpg");
+		 background-repeat: no-repeat;
+		 background-size: cover;
+	}
+        section{
+            height: 500px;
+            width: 550px;
+            background-color: aquamarine;
+            margin: auto;
+            margin-top: 50px;
+            padding: 1.5rem;
+            border-radius: 10px;
+            background-image: url("nse.jpg");
+	   
+        }
+        .input{
+            display: flex;
+            margin-left: 80px;
+            height: 30px;
+        }
+
+        #text{
+            width: 300px;
+            border: transparent;
+            border-top-left-radius:3px ;
+            border-bottom-left-radius: 3px;
+            text-align: center;
+        }
+        #submit{
+            border: transparent;
+            margin-left: 15px;
+            width: 60px;
+            border-top-right-radius: 3px;
+            border-bottom-right-radius: 3px;
+        }
+        #submit:hover{
+            background-color: rgb(77, 184, 233);
+        }
+        .feature{
+            display: flex;
+            margin-left: 80px; 
+        
+        }
+        .feature p{
+            color:red;
+        }
+        #bitcoin{
+            margin-top: 20px;
+            margin-left: 40px;
+            height:20px; width:20px; vertical-align: middle;
+        }
+        #stock{
+            margin-top: 20px;
+            height:20px; width:20px; vertical-align: middle;
+        }
+        #Crypto{
+            margin-top: 20px;
+            margin-left: 40px;
+            height:20px; width:20px; vertical-align: middle;
+        }
+        p{
+            margin-left: 5px;
+            margin-top: 22px;
+        }
+        .main{
+            height: 300px;
+            width: 380px;
+            background-color: whitesmoke;
+            margin-left: 80px;
+            border-radius: 5px;
+        }
+        .main p{
+            margin-top: 10px;
+            margin-left: 20px;
+            padding: 1rem;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            color: gray;
+            font-size: xx-large;
+            margin-bottom: 0px;
+            padding-bottom: 0rem;
+        }
+        .output p{
+            margin-left: 20px;
+            padding: 0.5rem;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            color: rgba(128, 128, 128, 0.668);
+            font-size: large;
+        }
+        .output span{
+            margin-left: 5px;
+            color:black;
+        }
+	h2{
+            color:black;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin-left: 15px;
+	    margin-top:15px;
+	    
+        }
+    .back-video{
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        z-index: -1;
+    }
+    h1{
+        color: white;
+    }
+    </style>
+</head>
+<body>
+    <video autoplay loop muted class="back-video">
+        <source src="1797247-uhd_3840_2160_24fps.mp4">
+    </video>
+<h2>MarketView</h2>
+    <section>
+        <h1 align="center"> Check the company trade Info</h1>
+        <div class="input">
+            <input type="text" id="text" placeholder="Company" required>
+            <input type="submit" value="Check" id="submit">
+        </div>
+        <div class="feature">
+            <input type="radio" name="feature" id="stock"><p>Stock</p>
+            <input type="radio" name="feature" id="bitcoin"><p>Bitcoin</p>
+            <input type="radio" name="feature" id="Crypto"><p>Crypto</p>
+        </div>
+        <div class="main">
+                <p id="textname"></p>
+                <div class="output">
+                    <p>Description:<span id="description"></span></p>
+                    <p>Exchange:<span id="exchange"></span></p>
+                    <p>Currency_code:<span id="currency_code"></span></p>
+                </div>
+        </div>
+
+    </section>
+
+
+
+<script>
+	const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': '8453ce3040msh4500240b0c91fdfp12fea7jsn5ebc98dd8199',
+		'X-RapidAPI-Host': 'trading-view.p.rapidapi.com'
+	}
+};
+	
+	const trading = ( text) =>{
+		textname.innerHTML=text
+		
+	fetch('https://trading-view.p.rapidapi.com/v2/auto-complete?text='+text ,options)
+	.then((response) => {return response.json()})
+	.then((data) => {console.log(data.symbols[0].description)
+			console.log(data.symbols[0].exchange) 
+			console.log(data.symbols[0].currency_code)
+		description.innerHTML=data.symbols[0].description
+		currency_code.innerHTML=data.symbols[0].currency_code
+		exchange.innerHTML=data.symbols[0].exchange
+
+	})
+	}
+	
+	submit.addEventListener("click",(event) => {
+		event.preventDefault()
+		trading(text.value)
+		
+		
+	})
+	
+	trading("Tesla")
+
+
+
+
+</script>
+</body>
+</html>
